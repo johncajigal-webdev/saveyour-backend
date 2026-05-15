@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config({ path: __dirname + '/../.env' });
+require('dotenv').config();
 console.log('KEY:', process.env.PAYMONGO_SECRET_KEY);
 
 const app = express();
