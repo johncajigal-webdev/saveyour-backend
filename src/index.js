@@ -14,6 +14,8 @@ app.get('/',(req,res) => {
 });
 
 app.post('/create-paymongo-payment', async(req,res)=>{
+console.log('PayMongo key:', process.env.PAYMONGO_SECRET_KEY);
+ 
  try{
   const {amount} = req.body;
 
