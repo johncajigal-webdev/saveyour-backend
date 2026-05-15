@@ -1,8 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
-console.log('KEY:', process.env.PAYMONGO_SECRET_KEY);
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -14,7 +11,6 @@ app.get('/',(req,res) => {
 });
 
 app.post('/create-paymongo-payment', async(req,res)=>{
-console.log('PayMongo key:', process.env.PAYMONGO_SECRET_KEY);
  
  try{
   const {amount} = req.body;
