@@ -43,6 +43,29 @@ app.post('/create-paymongo-payment', async(req,res)=>{
  }
 })
 
+app.post('/create-stripe-payment', async (req, res) => {
+  try {
+    const { amount } = req.body;
+
+    const response = await fetch('https://api.stripe.com/v1/payment_intents', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.STRIPE_SECRET_KEY}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `amount=${amount}&currency=usd&automatic_payment_methods[enabled]=true`,
+    });
+
+    const data = await response.json();
+    console.log('Stripe response:', JSON.stringify(data));
+    res.json({ clientSecret: data.client_secret });
+
+  } catch (error) {
+    console.log('Stripe error:', error);
+    res.status(500).json({ error: 'Payment failed' });
+  }
+});
+
 app.listen(PORT, ()=> {
  console.log(`Server running on port ${PORT}`);
 });
